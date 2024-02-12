@@ -34,7 +34,31 @@ library(GGally)
 ggpairs(data.frame(data$medv, data$rm, data$age, data$nox))
 ```
 
-**1
+
 e)
 IV
 Looking at the correlation between Age and NOX, it is 0.731, which is quite high which suggest it has  multicollinearity, which means they give the some of the same information for the model.
+
+***Problem 2
+**a)
+
+```{r Problem 2, echo=TRUE, eval=TRUE}
+
+model3 = lm(medv ~ poly(rm, 2) + I(age*crim) + age + crim, data=data)
+summary(model3)
+?Boston
+
+
+valuechanged = (-10*(-0.796544)+60*(-0.067283)+0.005792 * (-10 + 60))*1000
+```
+If the crime is reduced by 10 and age is 60, and then considering all other factor keeps equal our median value of the property is changed by `r valuechanged`.`
+
+
+
+```{r problem 2 b, echo=TRUE, eval=TRUE}
+```
+
+**b)
+First thing we could do is to plot all our data with say ggpairs from GGAlly. We can then look how the data is spread and correlated. We want to carefully identify if we have any outliers. If most our points follow a specific pattern, but then one point stick out, we could carefully consider to remove it. One approach could be to look at the mean and std of a given data columns and if some point lie 2 standard deviations away from the mean we could remove them.
+
+
