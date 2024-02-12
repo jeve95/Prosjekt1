@@ -19,8 +19,22 @@ Qvalitative: Marital status, origin, Gender.
 
 
 ```{r setup2, echo=TRUE, eval=TRUE}
+library(MASS)
+data(Boston)
+data = Boston
 
+model = lm(medv ~ rm + age,data=data)
+summary(model)
 
+cor_matrix = cor(data.frame(data$medv, data$rm, data$age))
+print(cor_matrix)
+model2 = lm(medv ~ rm + age + nox, data=data)
+summary(model2)
+library(GGally)
+ggpairs(data.frame(data$medv, data$rm, data$age, data$nox))
 ```
 
-
+**1
+e)
+IV
+Looking at the correlation between Age and NOX, it is 0.731, which is quite high which suggest it has  multicollinearity, which means they give the some of the same information for the model.
