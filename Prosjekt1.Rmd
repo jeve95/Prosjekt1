@@ -1,5 +1,5 @@
 ---
-title: "Project 1"
+title: "Compulsory exercise 1: Group 12"
 author: "Evgeni Vershinin, Kristina Ødegård"
 date: "2024-02-08"
 output: pdf_document
