@@ -62,3 +62,22 @@ If the crime is reduced by 10 and age is 60, and then considering all other fact
 First thing we could do is to plot all our data with say ggpairs from GGAlly. We can then look how the data is spread and correlated. We want to carefully identify if we have any outliers. If most our points follow a specific pattern, but then one point stick out, we could carefully consider to remove it. One approach could be to look at the mean and std of a given data columns and if some point lie 2 standard deviations away from the mean we could remove them.
 
 
+
+
+
+
+
+
+***Problem 3
+a)
+
+```{r proble 3a, echo=TRUE, eval=TRUE}
+install.packages("titanic")
+library(titanic)
+titanic_data = titanic_train 
+titanic_train
+View(titanic_data)
+logi_model = glm(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare, data = titanic_data)
+summary(logi_model)
+
+```
