@@ -134,12 +134,48 @@ The difference between confidence interval and prediction interval is that the c
 autoplot(model4, which = c(1, 2, 3, 5))
 ```
 **e)
-**i) The gender is a binary qualitative variable. The student has used two binary variables to describe what only needs one.
-$y= \beta_{0} + \beta_{1}x_{gender} +  \varepsilon$
+**i) The gender is a binary qualitative variable. The student has used two binary variables to describe what only needs one. If two binary qualitative variables were used, it would in fact allow for four different cases:
+
+\begin{align*}
+& \text{Case 1: Male and Female} & & x_{male}=1 \text{ and } x_{female}=1 \\
+& \text{Case 2: Male and Not Female} & & x_{male}=1 \text{ and } x_{female}=0 \\
+& \text{Case 3: Not Male and Female} & & x_{male}=0 \text{ and } x_{female}=1 \\
+& \text{Case 4: Not Male and Not Female} & & x_{male}=0 \text{ and } x_{female}=0 \\
+\end{align*}
+
+In reality, there are only two cases:
+\begin{align*}
+& \text{Case 1: Male (and Not Female)} & & x_{gender}=1 \\
+& \text{Case 2: Female (and Not Male)} & & x_{gender}=0 \\
+\end{align*}
+
+**ii) The formula should only have one binary quantitative variable to describe 
+the gender.
+
+$y=\beta_{0}+\beta_{1}x_{gender}+\varepsilon$
+
+where 
+
 $x_{gender}= \begin{cases}1 & if~male\\0 & if~female\end{cases}$
 
+**iii) A formula for a linear model that predicts income based on the predictor 
+education degree with three categories {Bachelor, Master, PhD} is:
 
+$y=\beta_{0}+\beta_{1}x_{education}+\varepsilon$
 
+where
+
+$x_{education}= \begin{cases}2 & if~PhD\\1 & if~Master\\0 & if~Bachelor\end{cases}$
+
+**f)
+
+**i) True
+
+**ii) False
+
+**iii) True
+
+**iv) False
 
 
 
