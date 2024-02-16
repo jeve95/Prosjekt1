@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,cache = TRUE)
 library(MASS)
 library(GGally)
 library(ggfortify)
@@ -28,7 +28,7 @@ Qvalitative: Marital status, origin, Gender.
 *d)The nereast neighbour for k=1 is a blue dot, so our classification is blue. For K=3, two of the nearest neighbors are red and 1 blue. This gives 2/3 red, so it is red. For K=5 we have 3/5 red, so it is red.
 
 
-```{r setup2, echo=TRUE, eval=TRUE}
+```{r setup2, echo=TRUE, eval=TRUE, cache=TRUE}
 data(Boston)
 data = Boston
 
@@ -45,7 +45,7 @@ ggpairs(data.frame(data$medv, data$rm, data$age, data$nox))
 
 e)
 IV
-Looking at the correlation between Age and NOX, it is 0.731, which is quite high which suggest it has  multicollinearity, which means they give the some of the same information for the model.
+Looking at the correlation between Age and NOX, it is 0.731, which is quite high which suggest it has  multicollinearity, which means they give some of the same information for the model.
 
 ***Problem 2
 **a)
@@ -187,7 +187,6 @@ a)
 ```{r proble 3a, echo=TRUE, eval=TRUE}
 data("titanic_train")
 vars_to_be_removed <- c("PassengerId", "Name", "Ticket", "Cabin", "Embarked")
-View(titanic_train)
 titanic_train <- titanic_train[, -which(names(titanic_train) %in% vars_to_be_removed)]
 titanic_train$Pclass <- as.factor(titanic_train$Pclass)
 train_idx <- sample(1:nrow(titanic_train), 0.8 * nrow(titanic_train))
@@ -329,7 +328,47 @@ QDA (Quadratic Discriminant Analysis): Also belongs to the sampling paradigm. Si
 
 ***Problem 4
 
+<<<<<<< HEAD
 **a) iv) True
+=======
+**c)
+
+I) The decision boundary is given by setting by taking the log of each pdf and adding the log of the prior probability equal each other.
+
+\begin{align*}
+X|\{Y=1\}\sim N(-2,1.5^2)\\
+X|\{Y=2\}\sim N(2,1.5^2) \\
+\pi_1 = 0.3 \\
+\space \pi_2 =0.7
+\end{align*}
+
+\begin{align*}
+g_1(x|\pi_1)=g_2(X|\pi_2) \\
+  log(\frac{1}{\sqrt{2\pi}\sigma_1}+e^{-\frac{(x-\mu_1)^2}{2\sigma^2_1}})+log(\pi_1)=log(\frac{1}{\sqrt{2\pi}\sigma_2}+e^{-\frac{(x-\mu_2)^2}{2\sigma_2^2}})+log(\pi_2) \\
+  log(\frac{1}{\sqrt{2\pi}1.5}+e^{-\frac{(x+2)^2}{2\cdot1.5^2}})+log(0.3)=log(\frac{1}{\sqrt{2\pi}1.5}+e^{-\frac{(x-2)^2}{2\cdot1.5^2}})+log(0.7) \\
+  \frac{(x-2)^2-(x+2)^2}{4.5}+log(0.3)-log(0.7) = 0 \\
+  \frac{x^2-4x+4-x^2-4x-4}{4.5}+log(\frac{0.3}{0.7}) = 0 \\
+  \frac{-8x}{4.5}-0.847=0 \\
+  x=-0.477
+\end{align*}
+
+For x=-0.47 is the point where the graphs cross, at this point a model would change it decision of which class our point belongs to.
+
+
+```{r oppgave 3c, echo=TRUE,eval=TRUE}
+
+# generate data for the two normal distributions
+n_samples_class1 <- 3000
+n_samples_class2 <- 7000
+x1 <- rnorm(n_samples_class1, mean = -2, sd = 1.5)
+x2 <- rnorm(n_samples_class2, mean = 2, sd = 1.5)
+# create a data frame with the generated data
+df <- data.frame(X1 = c(x1, x2), class = c(rep(1, n_samples_class1), rep(2, n_samples_class2)))
+
+
+```
+
+>>>>>>> 190c1bd (16.02)
 
 **b) 
 **i)
