@@ -12,14 +12,15 @@ library(GGally)
 library(ggfortify)
 library(titanic)
 library(pROC)
+library(lattice)
 set.seed(123)
 ```
 
 
 
 
-**Problem 1  
-*a)  
+# Problem 1  
+## a)  
 Quantative: Time, income earned, horsepower of a car.
 Qvalitative: Marital status, origin, Gender.  
 *b) KNN, LDA, QDA can be used for multi-class classifications.  
@@ -326,24 +327,49 @@ LDA (Linear Discriminant Analysis): Primarily fits within the sampling paradigm.
 QDA (Quadratic Discriminant Analysis): Also belongs to the sampling paradigm. Similar to LDA, QDA models the distribution of features for each class, but it allows for class-specific covariance matrices, leading to quadratic decision boundaries. Like LDA, it uses the estimated distributions to compute class probabilities for classification.
 
 
+***Problem 4
 
+**a) iv) True
 
+**b) 
+**i)
+Corrected three mistakes:
 
+* Corrected the number of folds from 4 to 5.
+*
+* Corrected the RMSE formula.
+  
+```{r problem 4bi, echo=TRUE,eval=TRUE}
+set.seed(123)
+# Import the Boston housing price dataset
+library(caret)
+data(Boston)
+# select specific variables
+selected_vars <- c("crim", "rm", "age", "medv")
+boston_selected <- Boston[, selected_vars]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# manually perform the 5-fold cross-validation
+folds <- createFolds(boston_selected$medv, k = 5) # CORRECTED to 5
+rmse_list <- list()
+for (i in 1:length(folds)) {
+# get the training and validation sets
+train <- boston_selected[-folds[[i]], ] # CORRECTED
+val <- boston_selected[-folds[[i]], ]
+# fit a linear regression model
+model <- lm(medv ~ ., data = train)
+# compute RMSE on the validation set
+pred <- predict(model, val)
+rmse <- sqrt(mean((pred - val$medv)^2))  # CORRECTED squared error (RSME)
+rmse <- rmse[1] # take out the value
+# store rmse in rmse_list
+rmse_list[[i]] <- rmse
+}
+# compute mean of rmse_list
+rmse_mean <- mean(as.numeric(rmse_list))
+cat("rmse_mean:", rmse_mean, "\n")
+```
+**ii) Changed:
+folds <- createFolds(boston_selected$medv, k = 5)
+to:
+folds <- createFolds(boston_selected$medv, k = nrow(boston_selected))
 
