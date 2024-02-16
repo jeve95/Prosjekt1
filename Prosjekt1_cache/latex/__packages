@@ -4,3 +4,5 @@ GGally
 ggfortify
 titanic
 pROC
+lattice
+caret

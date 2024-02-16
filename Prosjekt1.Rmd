@@ -13,6 +13,7 @@ library(ggfortify)
 library(titanic)
 library(pROC)
 library(lattice)
+
 set.seed(123)
 ```
 
@@ -368,7 +369,7 @@ df <- data.frame(X1 = c(x1, x2), class = c(rep(1, n_samples_class1), rep(2, n_sa
 
 ```
 
->>>>>>> 190c1bd (16.02)
+190c1bd (16.02)
 
 **b) 
 **i)
@@ -379,9 +380,7 @@ Corrected three mistakes:
 * Corrected the RMSE formula.
   
 ```{r problem 4bi, echo=TRUE,eval=TRUE}
-set.seed(123)
 # Import the Boston housing price dataset
-library(caret)
 data(Boston)
 # select specific variables
 selected_vars <- c("crim", "rm", "age", "medv")
