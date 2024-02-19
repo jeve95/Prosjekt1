@@ -29,7 +29,7 @@ Qvalitative: Marital status, origin, Gender.
 KNN, LDA, QDA can be used for multi-class classifications  
 
 ## c)  
-### i)  
+### i-iii)  
 The three components is called bias, variance and irreducible error.  
 $(E[f (X) - \hat{f}(X)])^2$ represents the bias. It is the squared expectation between our model and the true data.  A high bias indicates that our model is
 too simple and does not capture the complexities in our data(underfitting).  
