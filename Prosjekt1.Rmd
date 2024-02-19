@@ -59,7 +59,7 @@ summary(model3)
 
 valuechanged = (-10*(-0.796544)+60*(-0.067283)+0.005792 * (-10 + 60))*1000
 ```
-If the crime is reduced by 10 and age is 60, and then considering all other factor keeps equal our median value of the property is changed by `r valuechanged`.`
+If the crime is reduced by 10 and age is 60, and then considering all other factor are kept equal our median value of the property is changed by `r valuechanged`.`
 
 
 
