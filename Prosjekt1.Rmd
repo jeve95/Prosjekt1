@@ -51,16 +51,11 @@ For K=3, two of the nearest neighbors are red and 1 blue. This gives 2/3 red, so
 it is red.  
 For K=5 we have 3/5 red, so it is red.  
 
-
-<<<<<<< HEAD
 ```{r setup2, echo=TRUE, eval=TRUE, cache=TRUE, fig.width=7, fig.height=3.5}
-=======
 
 ## e) 
 ### i)  
 
-```{r 1ei, echo=TRUE, eval=TRUE, cache=TRUE }
->>>>>>> cb30e1c (19/02)
 data(Boston)
 data = Boston
 model = lm(medv ~ rm + age,data=data)
@@ -175,30 +170,17 @@ cat("Upper bound of 99% prediction interval:", upper_bound_p, "\n")
 
 The difference between confidence interval and prediction interval is that the confidence interval estimates the range in which the population mean response most likely will lie, and the prediction interval estimates the range in which a future individual observation most likely will fall within.
 
-<<<<<<< HEAD
 **iv) 
 ```{r problem 2 div, echo=TRUE, eval=TRUE, fig.width=6, fig.height=4, fig.align='center'}
-=======
-### iv)  
-
-```{r problem 2 div, echo=TRUE, eval=TRUE}
->>>>>>> cb30e1c (19/02)
-
 # Create diagnostic plots
 autoplot(model4, which = c(1, 2, 3, 5))
 ```
-<<<<<<< HEAD
 
-**e)
-
-**i) The gender is a binary qualitative variable. The student has used two binary variables to describe what only needs one. If two binary qualitative variables were used, it would in fact allow for four different cases:
-=======
 ## e)  
 
 ### i)  
 
 The gender is a binary qualitative variable. The student has used two binary variables to describe what only needs one. If two binary qualitative variables were used, it would in fact allow for four different cases:
->>>>>>> cb30e1c (19/02)
 
 \begin{align*}
 & \text{Case 1: Male and Female} & & x_{male}=1 \text{ and } x_{female}=1 \\
@@ -404,13 +386,8 @@ LDA (Linear Discriminant Analysis): Primarily fits within the sampling paradigm.
 
 QDA (Quadratic Discriminant Analysis): Also belongs to the sampling paradigm. Similar to LDA, QDA models the distribution of features for each class, but it allows for class-specific covariance matrices, leading to quadratic decision boundaries. Like LDA, it uses the estimated distributions to compute class probabilities for classification.
 
-<<<<<<< HEAD
-**c)
-=======
-
 
 ## c)  
->>>>>>> cb30e1c (19/02)
 
 
 ### i)  
@@ -450,29 +427,18 @@ df <- data.frame(X1 = c(x1, x2), class = c(rep(1, n_samples_class1), rep(2, n_sa
 ```
 
 
-<<<<<<< HEAD
-# Problem 4
-
-## a) 
-iv) True
-
-## b) 
-### i)
-=======
 
 
 # Problem 4  
 
 ## a)  
-### iv)  
-True
+iv)  True
 
 
 ## b)  
 
 ### i)  
 
->>>>>>> cb30e1c (19/02)
 Corrected three mistakes:
 
 * Corrected the number of folds from 4 to 5.
@@ -506,16 +472,11 @@ rmse_list[[i]] <- rmse
 rmse_mean <- mean(as.numeric(rmse_list))
 cat("rmse_mean:", rmse_mean, "\n")
 ```
-<<<<<<< HEAD
+
 ### ii) 
 Changed:
 folds <- createFolds(boston_selected$medv, k = 5) 
 
-=======
-### ii)  
-Changed:
-folds <- createFolds(boston_selected$medv, k = 5)
->>>>>>> cb30e1c (19/02)
 to:
 
 folds <- createFolds(boston_selected$medv, k = nrow(boston_selected))
