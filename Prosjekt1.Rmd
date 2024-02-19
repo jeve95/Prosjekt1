@@ -29,7 +29,7 @@ Qvalitative: Marital status, origin, Gender.
 *d)The nereast neighbour for k=1 is a blue dot, so our classification is blue. For K=3, two of the nearest neighbors are red and 1 blue. This gives 2/3 red, so it is red. For K=5 we have 3/5 red, so it is red.
 
 
-```{r setup2, echo=TRUE, eval=TRUE, cache=TRUE}
+```{r setup2, echo=TRUE, eval=TRUE, cache=TRUE, fig.width=7, fig.height=3.5}
 data(Boston)
 data = Boston
 
@@ -130,12 +130,14 @@ cat("Upper bound of 99% prediction interval:", upper_bound_p, "\n")
 The difference between confidence interval and prediction interval is that the confidence interval estimates the range in which the population mean response most likely will lie, and the prediction interval estimates the range in which a future individual observation most likely will fall within.
 
 **iv) 
-```{r problem 2 div, echo=TRUE, eval=TRUE}
+```{r problem 2 div, echo=TRUE, eval=TRUE, fig.width=6, fig.height=4, fig.align='center'}
 
 # Create diagnostic plots
 autoplot(model4, which = c(1, 2, 3, 5))
 ```
+
 **e)
+
 **i) The gender is a binary qualitative variable. The student has used two binary variables to describe what only needs one. If two binary qualitative variables were used, it would in fact allow for four different cases:
 
 \begin{align*}
@@ -468,7 +470,7 @@ standard_error_without_replacement <- sd(boot_without_replacement)
 cat("Standard Error with replacement:", standard_error_with_replacement, "\n")
 cat("Standard Error without replacement:", standard_error_without_replacement, "\n")
 ```
-For the standard error without replacement, the same model is produced for each sample. That is because when sampling with the same size of the original data set without replacement, each samtle naturaly are the same.
+For the standard error without replacement, the same model is produced for each sample. That is because when sampling with the same size of the original data set without replacement, each sample naturally are the same. Thus, the standard error is 0 when bootstrapping without replacement. This indicates no variability in the standard error accros the different bootstrap samples, as all the samples are identical.
 
 ## d)
 
