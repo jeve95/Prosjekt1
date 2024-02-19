@@ -51,10 +51,13 @@ For K=3, two of the nearest neighbors are red and 1 blue. This gives 2/3 red, so
 it is red.  
 For K=5 we have 3/5 red, so it is red.  
 
-```{r setup2, echo=TRUE, eval=TRUE, cache=TRUE, fig.width=7, fig.height=3.5}
 
 ## e) 
 ### i)  
+
+
+```{r setup2, echo=TRUE, eval=TRUE, cache=TRUE, fig.width=7, fig.height=3.5}
+
 
 data(Boston)
 data = Boston
@@ -81,7 +84,10 @@ summary(model2)
 ```{r 1eiv, fig.height=3, fig.width=6}
 ggpairs(data.frame(data$medv, data$rm, data$age, data$nox))
 ```
-Looking at the correlation between Age and NOX, it is 0.731, which is quite high which suggest it has  multicollinearity, which means they give some of the same information for the model.  
+  
+  
+Looking at the correlation between Age and NOX, it is 0.731, which is quite high which suggest it has  multicollinearity, which means they give some of the
+same information for the model.  
 
 # Problem 2  
 
@@ -90,12 +96,10 @@ Looking at the correlation between Age and NOX, it is 0.731, which is quite high
 ```{r Problem 2, echo=TRUE, eval=TRUE}
 
 model3 = lm(medv ~ poly(rm, 2) + I(age*crim) + age + crim, data=data)
-summary(model3)
-
-
+print(model3$coefficient)
 valuechanged = (-10*(-0.796544)+60*(-0.067283)+0.005792 * (-10 + 60))*1000
 ```
-If the crime is reduced by 10 and age is 60, and then considering all other factor are kept equal our median value of the property is changed by `r round(valuechanged,2)`.`
+If the crime is reduced by 10 and age is 60, and then considering all other factor are kept equal our median value of the property is changed by `r round(valuechanged,2)`.
 
 
 
@@ -108,20 +112,19 @@ First thing we could do is to plot all our data with say ggpairs from GGAlly. We
 
 ```{r problem 2 c, echo=TRUE, eval=TRUE}
 model4 <- lm(medv ~ crim + age + rm, data = Boston)
-summary(model4)
+sm = summary(model4)
+stderr = sm$coefficients[4, "Std. Error"]
 ```
 
 ### i)  
 
 A t-value is calculated with the follow formula:
-$t = \frac{Coefficient~Estimate}{Standard~Error} = \frac{10}{`r round(model4$coefficients[3], 3)`}$
+$t = \frac{Coefficient~Estimate}{Standard~Error} = \frac{10}{`r round(stderr,3)`}$
 <!-- 10/0.40201=24.875 --> 
 
 The t-value for rm if the estimated coefficient was 10, but with the same standard error is 24.89. <!-- Insert variable instead.--> 
 
 A higher coefficient with standard error kept the same gives us a higher t value and higher t values makes our estimate for statistically significant, as the p value drops. The t distribution is like a normal distribution but with a estimated variance from the sample. With a low amount of sample the t distributions curve has fatter tails and lower around the mean, as sample increases it converges to a normal distribution. So a higher absolute t value puts our score further towards the tails, strengthening our result.
-
-When the coefficient estimate is increased, taking it further away from zero, it increases the t-value, making it more statistically significant.
 
 ### ii)  
 
@@ -131,7 +134,7 @@ print(f_test)
 ```
 An F-test was utilized to decide if at least one of the predictors is useful in predicting the response.
 
-In this case, all three predictors has a p-value associated with the F-statisic that is $<2.2 ^{-16}$. Since the p-value is essentially zero, we have strong evidence to reject the null hypothesis, which would be that none of the predictors were useful in predicting the response variable. Thus, at least one of the predictors is useful in predicting the response.
+In this case, all three predictors has a p-value associated with the F-statisic that is $<2.2\cdot10^{-16}$. Since the p-value is essentially zero, we have strong evidence to reject the null hypothesis, which would be that none of the predictors were useful in predicting the response variable. Thus, at least one of the predictors is useful in predicting the response.
 
 ### iii)  
 
@@ -141,6 +144,9 @@ f_test_2 <-anova(model5)
 print(f_test_2)
 ```
 The p-value associated with F values, though increased for age in this model without the predictor rm, are still significantly lower than the  typical significance level of 0.05. Thus the null hypothesis can be rejected for both predictors. We conclude that the model is still useful.
+
+
+## d)  
 
 ```{r problem 2 d, echo=TRUE, eval=TRUE}
 new_data <- data.frame(crim = 10, age = 90, rm = 5)
