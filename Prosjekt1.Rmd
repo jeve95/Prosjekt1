@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,cache = TRUE)
+knitr::opts_chunk$set(echo = TRUE,cache = TRUE,eval=TRUE)
 library(MASS)
 library(GGally)
 library(ggfortify)
@@ -21,35 +21,76 @@ set.seed(123)
 
 
 # Problem 1  
-## a)  
-Quantative: Time, income earned, horsepower of a car.
+## a) 
+Quantative: Time, income earned, horsepower of a car.  
 Qvalitative: Marital status, origin, Gender.  
-*b) KNN, LDA, QDA can be used for multi-class classifications.  
-*c)  
-*d)The nereast neighbour for k=1 is a blue dot, so our classification is blue. For K=3, two of the nearest neighbors are red and 1 blue. This gives 2/3 red, so it is red. For K=5 we have 3/5 red, so it is red.
+
+## b)  
+KNN, LDA, QDA can be used for multi-class classifications  
+
+## c)  
+### i)  
+The three components is called bias, variance and irreducible error.  
+$(E[f (X) - \hat{f}(X)])^2$ represents the bias. It is the squared expectation between our model and the true data.  A high bias indicates that our model is
+too simple and does not capture the complexities in our data(underfitting).  
+$Var(\hat{f}(X))$ is the variance of our model. A high variance means our model is following our training data quite tight. It could mean our model too
+complex, it might follow our training data quite good, but fail on test data(overfitting).  
+$var(\epsilon)$ is the irreducible error. This error we have no control over. It is the inherit noise of the data, the randomness and natural variability of
+the true data.  
+
+### ii)  
+
+Often by increasing the bias, we will reduce the variance, and vice verca. High variance could lead to higher score on training data, but if increased too
+much it would also decrease the score on the test data(overfitting). A high bias could make our model more interpretative and give us somehow good score on
+test data, but if too low it could make our model miss relevant relations between predictors and response(Underfitting). This is why we have a bias-variance
+trade off.  
+
+## d)  
+The nereast neighbour for k=1 is a blue dot, so our classification is blue.  
+For K=3, two of the nearest neighbors are red and 1 blue. This gives 2/3 red, so
+it is red.  
+For K=5 we have 3/5 red, so it is red.  
 
 
+<<<<<<< HEAD
 ```{r setup2, echo=TRUE, eval=TRUE, cache=TRUE, fig.width=7, fig.height=3.5}
+=======
+
+## e) 
+### i)  
+
+```{r 1ei, echo=TRUE, eval=TRUE, cache=TRUE }
+>>>>>>> cb30e1c (19/02)
 data(Boston)
 data = Boston
-
 model = lm(medv ~ rm + age,data=data)
 summary(model)
+```
 
+### ii)  
+
+```{r 1eii}
 cor_matrix = cor(data.frame(data$medv, data$rm, data$age))
 print(cor_matrix)
+```
+
+### iii)  
+
+```{r 1eiii}
 model2 = lm(medv ~ rm + age + nox, data=data)
 summary(model2)
-ggpairs(data.frame(data$medv, data$rm, data$age, data$nox))
 ```
 
 
-e)
-IV
-Looking at the correlation between Age and NOX, it is 0.731, which is quite high which suggest it has  multicollinearity, which means they give some of the same information for the model.
+### iv)  
+```{r 1eiv, fig.height=3, fig.width=6}
+ggpairs(data.frame(data$medv, data$rm, data$age, data$nox))
+```
+Looking at the correlation between Age and NOX, it is 0.731, which is quite high which suggest it has  multicollinearity, which means they give some of the same information for the model.  
 
-***Problem 2
-**a)
+# Problem 2  
+
+## a)  
 
 ```{r Problem 2, echo=TRUE, eval=TRUE}
 
@@ -59,33 +100,36 @@ summary(model3)
 
 valuechanged = (-10*(-0.796544)+60*(-0.067283)+0.005792 * (-10 + 60))*1000
 ```
-If the crime is reduced by 10 and age is 60, and then considering all other factor are kept equal our median value of the property is changed by `r valuechanged`.`
+If the crime is reduced by 10 and age is 60, and then considering all other factor are kept equal our median value of the property is changed by `r round(valuechanged,2)`.`
 
 
 
-```{r problem 2 b, echo=TRUE, eval=TRUE}
-```
 
-**b)
+## b)  
+
 First thing we could do is to plot all our data with say ggpairs from GGAlly. We can then look how the data is spread and correlated. We want to carefully identify if we have any outliers. If most our points follow a specific pattern, but then one point stick out, we could carefully consider to remove it. One approach could be to look at the mean and std of a given data columns and if some point lie 2 standard deviations away from the mean we could remove them.
 
-**c)
+## c)  
+
 ```{r problem 2 c, echo=TRUE, eval=TRUE}
 model4 <- lm(medv ~ crim + age + rm, data = Boston)
 summary(model4)
 ```
 
-**i) A t-value is calculated with the follow formula:
+### i)  
+
+A t-value is calculated with the follow formula:
 $t = \frac{Coefficient~Estimate}{Standard~Error} = \frac{10}{`r round(model4$coefficients[3], 3)`}$
 <!-- 10/0.40201=24.875 --> 
 
 The t-value for rm if the estimated coefficient was 10, but with the same standard error is 24.89. <!-- Insert variable instead.--> 
 
-The t-value is a measure of how many standard errors the estimated coefficient is from zero. This indicates how strong effect the variable has in the response variable. That is, how significant it is. 
+A higher coefficient with standard error kept the same gives us a higher t value and higher t values makes our estimate for statistically significant, as the p value drops. The t distribution is like a normal distribution but with a estimated variance from the sample. With a low amount of sample the t distributions curve has fatter tails and lower around the mean, as sample increases it converges to a normal distribution. So a higher absolute t value puts our score further towards the tails, strengthening our result.
 
 When the coefficient estimate is increased, taking it further away from zero, it increases the t-value, making it more statistically significant.
 
-**ii)
+### ii)  
+
 ```{r problem 2 cii, echo=TRUE, eval=TRUE}
 f_test <-anova(model4)
 print(f_test)
@@ -94,7 +138,8 @@ An F-test was utilized to decide if at least one of the predictors is useful in 
 
 In this case, all three predictors has a p-value associated with the F-statisic that is $<2.2 ^{-16}$. Since the p-value is essentially zero, we have strong evidence to reject the null hypothesis, which would be that none of the predictors were useful in predicting the response variable. Thus, at least one of the predictors is useful in predicting the response.
 
-**iii)
+### iii)  
+
 ```{r problem 2 ciii, echo=TRUE, eval=TRUE}
 model5 <- lm(medv ~ crim + age, data = Boston)
 f_test_2 <-anova(model5)
@@ -126,19 +171,34 @@ upper_bound_p <- prediction_p[2]
 cat("Lower bound of 99% prediction interval:", lower_bound_p, "\n")
 cat("Upper bound of 99% prediction interval:", upper_bound_p, "\n")
 ```
-**iii)
+### iii)  
+
 The difference between confidence interval and prediction interval is that the confidence interval estimates the range in which the population mean response most likely will lie, and the prediction interval estimates the range in which a future individual observation most likely will fall within.
 
+<<<<<<< HEAD
 **iv) 
 ```{r problem 2 div, echo=TRUE, eval=TRUE, fig.width=6, fig.height=4, fig.align='center'}
+=======
+### iv)  
+
+```{r problem 2 div, echo=TRUE, eval=TRUE}
+>>>>>>> cb30e1c (19/02)
 
 # Create diagnostic plots
 autoplot(model4, which = c(1, 2, 3, 5))
 ```
+<<<<<<< HEAD
 
 **e)
 
 **i) The gender is a binary qualitative variable. The student has used two binary variables to describe what only needs one. If two binary qualitative variables were used, it would in fact allow for four different cases:
+=======
+## e)  
+
+### i)  
+
+The gender is a binary qualitative variable. The student has used two binary variables to describe what only needs one. If two binary qualitative variables were used, it would in fact allow for four different cases:
+>>>>>>> cb30e1c (19/02)
 
 \begin{align*}
 & \text{Case 1: Male and Female} & & x_{male}=1 \text{ and } x_{female}=1 \\
@@ -153,7 +213,8 @@ In reality, there are only two cases:
 & \text{Case 2: Female (and Not Male)} & & x_{gender}=0 \\
 \end{align*}
 
-**ii) The formula should only have one binary quantitative variable to describe 
+### ii)  
+The formula should only have one binary quantitative variable to describe 
 the gender.
 
 $y=\beta_{0}+\beta_{1}x_{gender}+\varepsilon$
@@ -171,21 +232,24 @@ where
 
 $x_{education}= \begin{cases}2 & if~PhD\\1 & if~Master\\0 & if~Bachelor\end{cases}$
 
-**f)
+## f)  
 
-**i) True
+### i) True  
 
-**ii) False
+### ii) False  
 
-**iii) True
+### iii) True  
 
-**iv) False
-
-
+### iv) False  
 
 
-***Problem 3
-a)
+
+
+# Problem 3  
+
+## a)  
+
+### i)  
 
 ```{r proble 3a, echo=TRUE, eval=TRUE}
 data("titanic_train")
@@ -198,22 +262,36 @@ titanic_train <- titanic_train[train_idx, ]
 titanic_train <- na.omit(titanic_train)
 titanic_test <- na.omit(titanic_test)
 logReg = glm(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare, data = titanic_train, family = "binomial")
-summary(logReg)
 predicted_probabilities <- predict(logReg, newdata = titanic_test, type = "response")
 predicted_labels <- ifelse(predicted_probabilities > 0.5, 1, 0)
 actual_labels <- titanic_test$Survived 
 misclassification_error <- mean(predicted_labels != actual_labels)
 accuracy <- 1 - misclassification_error
-print(accuracy)
+print(round(accuracy,2))
+```
+
+### ii)  
+
+
+```{r 3aii}
 chitest = anova(logReg,test="Chisq")
 chitest
+```
+
+Given that th p value is less that $2.2\cdot10^{-16}$ suggest passenger class is really relevant predictor. In fact it is our strongest predictor. $H_0$ is that our predictor could just as well be 0, a low p value would break this hypothesis. 
+
+### iii)  
+
+
+```{r 3aiii}
 newdata = data.frame(Pclass=as.factor(c(1,3)),Sex=c("female","female"),Age=c(40,40),SibSp=c(1,1),Parch=c(0,0),Fare=c(200,20))
-newdata
 casepredict = predict(logReg,newdata = newdata,type="response")
 casepredict
 ```
 
-Given a p value of less that 2.2*10^(-16) suggest it is really relevant predictor. Given that $H_0$ is predictor could just as well be 0, a low p value would break this hypothesis. Comparing the a woman with the all the same factors, except for class and fare price, the higher class woman has a `r casepredict[1]` chance of survival, while the lower class woman has a `r casepredict[2]` chance of survival.
+Comparing the a woman with the all the same factors, except for class and fare price, the higher class woman has a `r round(casepredict[1],2)` chance of survival, while the lower class woman has a `r round(casepredict[2],2)` chance of survival.
+
+### iv)  
 
 
 ```{r problem 3a(lda),echo=TRUE,eval=TRUE}
@@ -229,10 +307,7 @@ accuracy <- 1 - misclassification_error
 print(accuracy)
 ```
 
-
-
-
-
+### v)  
 
 ```{r problem 1a(QDA), echo=TRUE,eval=TRUE}
 qdamodel = qda(Survived ~ ., data = titanic_train)
@@ -247,9 +322,9 @@ print(accuracy)
 
 ```
 
+### vi)  
 
-
-```{r problem 1a(ROC), echo=TRUE,eval=TRUE}
+```{r problem 1a(ROC),fig.height=4,fig.width=4}
 
 
 logreg_probs <- predict(logReg, newdata = titanic_test, type = "response")
@@ -267,7 +342,7 @@ roc_lda <- roc(actual_outcomes, lda_probs)
 roc_qda <- roc(actual_outcomes, qda_probs)
 
 # Plot ROC curve for Logistic Regression
-plot(roc_logreg, main="ROC Curves Comparison", col="red")
+plot(roc_logreg, main="ROC Curves Comparison", col="red", xlim=c(1, 0), ylim=c(0, 1))
 
 # Add ROC curve for LDA
 lines(roc_lda, col="blue")
@@ -301,7 +376,7 @@ cat("AUC for QDA:", auc_qda, "\n")
 AUC over 0.8 is generally considered good. QDA performs slightly better than LDA and Logistic Regression. However Logistic regression is almost as accurate, but more interpretable, for one it gives clearer relationships between the predictors and they are linear.
 
 
-**b)
+## b)  
 
 Diagnostic Paradigm:
 
@@ -316,7 +391,8 @@ Modeling Focus: The diagnostic paradigm focuses on the direct relationship betwe
 Approach: Diagnostic models are more discriminative, directly seeking a decision boundary between classes. Sampling models are generative, aiming to understand the data generation process for each class.
 Decision Rule: In the diagnostic paradigm, classification decisions are often made based on estimated probabilities and thresholds. In the sampling paradigm, decisions are made based on likelihoods derived from the modeled distributions of features for each class.
 
-ii) Classification Models and Their Paradigms
+### ii)  
+Classification Models and Their Paradigms
 
 Logistic Regression: Belongs to the diagnostic paradigm. It models the probability of a class given the features directly using the logistic function.
 
@@ -328,9 +404,17 @@ LDA (Linear Discriminant Analysis): Primarily fits within the sampling paradigm.
 
 QDA (Quadratic Discriminant Analysis): Also belongs to the sampling paradigm. Similar to LDA, QDA models the distribution of features for each class, but it allows for class-specific covariance matrices, leading to quadratic decision boundaries. Like LDA, it uses the estimated distributions to compute class probabilities for classification.
 
+<<<<<<< HEAD
 **c)
+=======
 
-I) The decision boundary is given by setting by taking the log of each pdf and adding the log of the prior probability equal each other.
+
+## c)  
+>>>>>>> cb30e1c (19/02)
+
+
+### i)  
+The decision boundary is given by setting by taking the log of each pdf and adding the log of the prior probability equal each other.
 
 \begin{align*}
 X|\{Y=1\}\sim N(-2,1.5^2)\\
@@ -365,8 +449,8 @@ df <- data.frame(X1 = c(x1, x2), class = c(rep(1, n_samples_class1), rep(2, n_sa
 
 ```
 
-190c1bd (16.02)
 
+<<<<<<< HEAD
 # Problem 4
 
 ## a) 
@@ -374,6 +458,21 @@ iv) True
 
 ## b) 
 ### i)
+=======
+
+
+# Problem 4  
+
+## a)  
+### iv)  
+True
+
+
+## b)  
+
+### i)  
+
+>>>>>>> cb30e1c (19/02)
 Corrected three mistakes:
 
 * Corrected the number of folds from 4 to 5.
@@ -407,10 +506,16 @@ rmse_list[[i]] <- rmse
 rmse_mean <- mean(as.numeric(rmse_list))
 cat("rmse_mean:", rmse_mean, "\n")
 ```
+<<<<<<< HEAD
 ### ii) 
 Changed:
 folds <- createFolds(boston_selected$medv, k = 5) 
 
+=======
+### ii)  
+Changed:
+folds <- createFolds(boston_selected$medv, k = 5)
+>>>>>>> cb30e1c (19/02)
 to:
 
 folds <- createFolds(boston_selected$medv, k = nrow(boston_selected))
