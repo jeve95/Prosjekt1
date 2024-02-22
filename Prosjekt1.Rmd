@@ -21,16 +21,13 @@ set.seed(123)
 
 
 # Problem 1  
-## a) 
-Quantative: Time, income earned, horsepower of a car.  
+**a)** Quantative: Time, income earned, horsepower of a car.  
 Qvalitative: Marital status, origin, Gender.  
 
-## b)  
-KNN, LDA, QDA can be used for multi-class classifications  
+**b)** KNN, LDA, QDA can be used for multi-class classifications  
 
-## c)  
-### i-iii)  
-The three components is called bias, variance and irreducible error.  
+**c)**  
+**i-iii)** The three components is called bias, variance and irreducible error.  
 $(E[f (X) - \hat{f}(X)])^2$ represents the bias. It is the squared expectation between our model and the true data.  A high bias indicates that our model is
 too simple and does not capture the complexities in our data(underfitting).  
 $Var(\hat{f}(X))$ is the variance of our model. A high variance means our model is following our training data quite tight. It could mean our model too
@@ -38,22 +35,20 @@ complex, it might follow our training data quite good, but fail on test data(ove
 $var(\epsilon)$ is the irreducible error. This error we have no control over. It is the inherit noise of the data, the randomness and natural variability of
 the true data.  
 
-### ii)  
-
-Often by increasing the bias, we will reduce the variance, and vice verca. High variance could lead to higher score on training data, but if increased too
+**ii)** Often by increasing the bias, we will reduce the variance, and vice verca. High variance could lead to higher score on training data, but if increased too
 much it would also decrease the score on the test data(overfitting). A high bias could make our model more interpretative and give us somehow good score on
 test data, but if too low it could make our model miss relevant relations between predictors and response(Underfitting). This is why we have a bias-variance
 trade off.  
 
-## d)  
+**d)**  
 The nereast neighbour for k=1 is a blue dot, so our classification is blue.  
 For K=3, two of the nearest neighbors are red and 1 blue. This gives 2/3 red, so
 it is red.  
 For K=5 we have 3/5 red, so it is red.  
 
 
-## e) 
-### i)  
+**e)** 
+**i)**  
 
 
 ```{r setup2, echo=TRUE, eval=TRUE, cache=TRUE, fig.width=7, fig.height=3.5}
@@ -65,14 +60,14 @@ model = lm(medv ~ rm + age,data=data)
 summary(model)
 ```
 
-### ii)  
+**ii)**  
 
 ```{r 1eii}
 cor_matrix = cor(data.frame(data$medv, data$rm, data$age))
 print(cor_matrix)
 ```
 
-### iii)  
+**iii)**  
 
 ```{r 1eiii}
 model2 = lm(medv ~ rm + age + nox, data=data)
@@ -80,7 +75,7 @@ summary(model2)
 ```
 
 
-### iv)  
+**iv)**  
 ```{r 1eiv, fig.height=3, fig.width=6}
 ggpairs(data.frame(data$medv, data$rm, data$age, data$nox))
 ```
@@ -91,7 +86,7 @@ same information for the model.
 
 # Problem 2  
 
-## a)  
+**a)**  
 
 ```{r Problem 2, echo=TRUE, eval=TRUE}
 
@@ -101,11 +96,11 @@ valuechanged = (-10*(-0.796544)+60*(-0.067283)+0.005792 * (-10 + 60))*1000
 ```
 If the crime is reduced by 10 and age is 60, and then considering all other factor are kept equal our median value of the property is changed by `r round(valuechanged,2)`.
 
-## b)  
+**b)**  
 
 First thing we could do is to plot all our data with say ggpairs from GGAlly. We can then look how the data is spread and correlated. We want to carefully identify if we have any outliers. If most our points follow a specific pattern, but then one point stick out, we could carefully consider to remove it. One approach could be to look at the mean and std of a given data columns and if some point lie 2 standard deviations away from the mean we could remove them.
 
-## c)  
+**c)**  
 
 ```{r problem 2 c, echo=TRUE, eval=TRUE}
 model4 <- lm(medv ~ crim + age + rm, data = Boston)
@@ -113,7 +108,7 @@ sm = summary(model4)
 stderr = sm$coefficients[4, "Std. Error"]
 ```
 
-### i)  
+**i)**  
 
 A t-value is calculated with the follow formula:
 $t = \frac{Coefficient~Estimate}{Standard~Error} = \frac{10}{`r round(stderr,3)`}$
@@ -122,7 +117,7 @@ The t-value for rm if the estimated coefficient was 10, but with the same standa
 
 A higher coefficient with standard error kept the same gives us a higher t value and higher t values makes our estimate for statistically significant, as the p value drops. The t distribution is like a normal distribution but with a estimated variance from the sample. With a low amount of sample the t distributions curve has fatter tails and lower around the mean, as sample increases it converges to a normal distribution. So a higher absolute t value puts our score further towards the tails, strengthening our result.
 
-### ii)  
+**ii)**  
 
 ```{r problem 2 cii, echo=TRUE, eval=TRUE}
 f_test <-anova(model4)
@@ -132,7 +127,7 @@ An F-test was utilized to decide if at least one of the predictors is useful in 
 
 In this case, all three predictors has a p-value associated with the F-statisic that is $<2.2\cdot10^{-16}$. Since the p-value is essentially zero, we have strong evidence to reject the null hypothesis, which would be that none of the predictors were useful in predicting the response variable. Thus, at least one of the predictors is useful in predicting the response.
 
-### iii)  
+**iii)**  
 
 ```{r problem 2 ciii, echo=TRUE, eval=TRUE}
 model5 <- lm(medv ~ crim + age, data = Boston)
@@ -142,9 +137,9 @@ print(f_test_2)
 The p-value associated with F values, though increased for age in this model without the predictor rm, are still significantly lower than the  typical significance level of 0.05. Thus the null hypothesis can be rejected for both predictors. We conclude that the model is still useful.
 
 
-## d)  
+**d)**  
 
-### i, ii, iii)  
+**i, ii, iii)**
 
 ```{r problem 2 d, echo=TRUE, eval=TRUE}
 new_data <- data.frame(crim = 10, age = 90, rm = 5)
@@ -166,7 +161,7 @@ this one is different. This is if we would take our data point and repeat it for
 range.
 
 
-## iv)  
+**iv)**
 
 ```{r problem 2 div, echo=TRUE, eval=TRUE, fig.width=6, fig.height=4, fig.align='center'}
 # Create diagnostic plots
@@ -182,9 +177,9 @@ right and from the middle line is bad. The normal Q-Q plot show if our data foll
 data is normal. In our case we can see that the plot diverge to the end. Suggesting that we have some heavy tails. Here we should add more predictors to
 straight up the line.  
 
-## e)  
+**e)**  
 
-### i)  
+**i)**  
 
 The gender is a binary qualitative variable. The student has used two binary variables to describe what only needs one. If two binary qualitative variables were used, it would in fact allow for four different cases:
 
@@ -201,7 +196,7 @@ In reality, there are only two cases:
 & \text{Case 2: Female (and Not Male)} & & x_{gender}=0 \\
 \end{align*}
 
-### ii)  
+**ii)**  
 The formula should only have one binary quantitative variable to describe 
 the gender. Our model would in this case make a base case for female and then if we have a male it could add something in $\beta_1$, say 10kg.
 
@@ -211,7 +206,7 @@ where
 
 $x_{gender}= \begin{cases}1 & if~male\\0 & if~female\end{cases}$
 
-### iii)  
+**iii)**  
 A formula for a linear model that predicts income based on the predictor 
 education degree with three categories {Bachelor, Master, PhD} is:
 
@@ -219,9 +214,10 @@ $y=\beta_{0}+\beta_{1}x_{master}+\beta_2x_{Phd}+\varepsilon$
 
 Generally we need k-1 "dummy" variables for k classes. In this case bachelor is the base case. If one has master but not PhD $x_{master}$ would be 1, but 0 if one has PhD. Then only the $x_{phd}$ would 1. Both would be 0 for the base case.
 
-## f) True, False, True, False 
+**f)** True, False, True, False 
 
-# Problem 3 a) i)  
+# Problem 3 
+**a) i)**  
 ```{r proble 3a, echo=TRUE, eval=TRUE}
 data("titanic_train")
 vars_to_be_removed <- c("PassengerId", "Name", "Ticket", "Cabin", "Embarked")
@@ -241,7 +237,7 @@ accuracy <- 1 - misclassification_error
 print(round(accuracy,2))
 ```
 
-### ii)  
+**ii)**  
 
 
 ```{r 3aii}
@@ -251,7 +247,7 @@ chitest
 
 Given that th p value is less that $2.2\cdot10^{-16}$ suggest passenger class is really relevant predictor. In fact it is our strongest predictor. $H_0$ is that our predictor could just as well be 0, a low p value would break this hypothesis. 
 
-### iii)  
+**iii)**  
 
 
 ```{r 3aiii}
@@ -262,7 +258,7 @@ casepredict
 
 Comparing the a woman with the all the same factors, except for class and fare price, the higher class woman has a `r round(casepredict[1],2)` chance of survival, while the lower class woman has a `r round(casepredict[2],2)` chance of survival.
 
-### iv)  
+**iv)**  
 
 
 ```{r problem 3a(lda),echo=TRUE,eval=TRUE}
@@ -278,7 +274,7 @@ accuracy <- 1 - misclassification_error
 print(accuracy)
 ```
 
-### v)  
+**v)**  
 
 ```{r problem 1a(QDA), echo=TRUE,eval=TRUE}
 qdamodel = qda(Survived ~ ., data = titanic_train)
@@ -291,7 +287,7 @@ accuracy <- 1 - misclassification_error
 print(accuracy)
 ```
 
-### vi)  
+**vi)**
 
 ```{r problem 1a(ROC),fig.height=4,fig.width=4}
 logreg_probs <- predict(logReg, newdata = titanic_test, type = "response")
@@ -329,7 +325,7 @@ cat("AUC for QDA:", auc_qda, "\n")
 AUC over 0.8 is generally considered good. QDA performs slightly better than LDA and Logistic Regression. However Logistic regression is almost as accurate, but more interpretable, for one it gives clearer relationships between the predictors and they are linear.
 
 
-## b)  
+**b)**  
 
 Diagnostic Paradigm:
 
@@ -344,7 +340,7 @@ Modeling Focus: The diagnostic paradigm focuses on the direct relationship betwe
 Approach: Diagnostic models are more discriminative, directly seeking a decision boundary between classes. Sampling models are generative, aiming to understand the data generation process for each class.
 Decision Rule: In the diagnostic paradigm, classification decisions are often made based on estimated probabilities and thresholds. In the sampling paradigm, decisions are made based on likelihoods derived from the modeled distributions of features for each class.
 
-### ii)  
+**ii)**  
 Classification Models and Their Paradigms
 
 Logistic Regression: Belongs to the diagnostic paradigm. It models the probability of a class given the features directly using the logistic function.
@@ -358,10 +354,10 @@ LDA (Linear Discriminant Analysis): Primarily fits within the sampling paradigm.
 QDA (Quadratic Discriminant Analysis): Also belongs to the sampling paradigm. Similar to LDA, QDA models the distribution of features for each class, but it allows for class-specific covariance matrices, leading to quadratic decision boundaries. Like LDA, it uses the estimated distributions to compute class probabilities for classification.
 
 
-## c)  
+**c)**  
 
 
-### i)  
+**i)**  
 The decision boundary is given by setting by taking the log of each pdf and adding the log of the prior probability equal each other.
 
 \begin{align*}
@@ -402,13 +398,13 @@ df <- data.frame(X1 = c(x1, x2), class = c(rep(1, n_samples_class1), rep(2, n_sa
 
 # Problem 4  
 
-## a)  
+**a)**  
 iv)  True
 
 
-## b)  
+**b)**  
 
-### i)  
+**i)**  
 
 Corrected three mistakes:
 
@@ -444,7 +440,7 @@ rmse_mean <- mean(as.numeric(rmse_list))
 cat("rmse_mean:", rmse_mean, "\n")
 ```
 
-### ii) 
+**ii)** 
 Changed:
 folds <- createFolds(boston_selected$medv, k = 5) 
 
@@ -452,8 +448,8 @@ to:
 
 folds <- createFolds(boston_selected$medv, k = nrow(boston_selected))
 
-## c)
-### i)
+**c)**
+**i)**
 Corrected the following:
 
 * Fixed the typo in the variable name "standard_erorr_of_the_median_bootstrap" to "standard_error_of_median_bootstrap".
@@ -478,7 +474,7 @@ standard_error_of_the_median_bootstrap <- sd(boot) # CORRECTED
 cat("standard_error_of_the_median_bootstrap:", standard_error_of_the_median_bootstrap, "\n")
 ```
 
-### ii)
+**ii)**
 ```{r problem 4cii, echo=TRUE,eval=TRUE}
 # simulate data (no need to change this part)
 set.seed(123)
@@ -509,5 +505,5 @@ cat("Standard Error without replacement:", standard_error_without_replacement, "
 ```
 For the standard error without replacement, the same model is produced for each sample. That is because when sampling with the same size of the original data set without replacement, each sample naturally are the same. Thus, the standard error is 0 when bootstrapping without replacement. This indicates no variability in the standard error accros the different bootstrap samples, as all the samples are identical.
 
-## d)
+**d)**
 
