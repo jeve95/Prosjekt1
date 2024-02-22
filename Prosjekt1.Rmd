@@ -183,18 +183,12 @@ In reality, there are only two cases:
 & \text{Case 2: Female (and Not Male)} & & x_{gender}=0 \\
 \end{align*}
 
-**ii)**  
-The formula should only have one binary quantitative variable to describe 
+**ii)** The formula should only have one binary quantitative variable to describe 
 the gender. Our model would in this case make a base case for female and then if we have a male it could add something in $\beta_1$, say 10kg.
 
-$y=\beta_{0}+\beta_{1}x_{gender}+\varepsilon$
+$y = \beta_{0} + \beta_{1} x_{\text{gender}} + \varepsilon \quad \text{where} \quad x_{\text{gender}} = \begin{cases} 1 & \text{if male} \\ 0 & \text{if female} \end{cases}$
 
-where 
-
-$x_{gender}= \begin{cases}1 & if~male\\0 & if~female\end{cases}$
-
-**iii)**  
-A formula for a linear model that predicts income based on the predictor 
+**iii)** A formula for a linear model that predicts income based on the predictor 
 education degree with three categories {Bachelor, Master, PhD} is:
 
 $y=\beta_{0}+\beta_{1}x_{master}+\beta_2x_{Phd}+\varepsilon$
@@ -406,16 +400,14 @@ rmse_mean <- mean(as.numeric(rmse_list))
 cat("rmse_mean:", rmse_mean, "\n")
 ```
 
-**ii)** 
-Changed:
+**ii)** Changed:
 folds <- createFolds(boston_selected$medv, k = 5) 
 
 to:
 
 folds <- createFolds(boston_selected$medv, k = nrow(boston_selected))
 
-**c) i)**
-Corrected the following:
+**c) i)** Corrected the following:
 
 * Fixed the typo in the variable name "standard_erorr_of_the_median_bootstrap" to "standard_error_of_median_bootstrap".
 * Changed the sample size (the second parameter of the sample function) from 1 to n. When bootstrapping, the sample size should be the same size as the original dataset, which facilitates the estimation of for example the median.
