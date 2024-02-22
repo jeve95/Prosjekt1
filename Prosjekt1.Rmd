@@ -333,28 +333,14 @@ classification. It's more about capturing the data generation process for each c
 Key differences include the diagnostic paradigm's focus on the direct feature-to-class relationship and use of probabilities for decision-making, whereas the
 sampling paradigm emphasizes understanding the data generation process and uses modeled distributions for classification.  
 
-<<<<<<< HEAD
+
 **ii)**  
-Classification Models and Their Paradigms
-
-Logistic Regression: Belongs to the diagnostic paradigm. It models the probability of a class given the features directly using the logistic function.
-
-KNN (K-Nearest Neighbors): Can be seen as part of the sampling paradigm. It classifies an observation based on the majority class among its K nearest neighbors, effectively using the local distribution of the data around an observation to make a classification decision.
-
-Naive Bayes Classifier: Fits within the sampling paradigm. It is a generative model that assumes independence among features given the class and estimates the distribution of each feature within each class to compute the posterior probability of the class given an observation.
-
-LDA (Linear Discriminant Analysis): Primarily fits within the sampling paradigm. LDA models the distribution of features in each class (assuming a Gaussian distribution with a common covariance matrix across classes) and uses this to classify new observations by finding the class that maximizes the posterior probability.
-
-QDA (Quadratic Discriminant Analysis): Also belongs to the sampling paradigm. Similar to LDA, QDA models the distribution of features for each class, but it allows for class-specific covariance matrices, leading to quadratic decision boundaries. Like LDA, it uses the estimated distributions to compute class probabilities for classification.
-=======
-### ii)  
 Logistic Regression: Diagnostic paradigm, models class probability directly.  
 K-Nearest Neighbors (KNN): Sampling paradigm, classifies based on the local data distribution.  
 Naive Bayes: Sampling paradigm, uses feature distributions within classes to compute posterior probabilities.  
 Linear Discriminant Analysis (LDA): Sampling paradigm, assumes Gaussian feature distribution with a common covariance matrix for classification.  
 Quadratic Discriminant Analysis (QDA): Sampling paradigm, similar to LDA but allows class-specific covariance matrices, leading to quadratic decision
 boundaries  
->>>>>>> 79c3af6 (22/02)
 
 
 **c)**  
