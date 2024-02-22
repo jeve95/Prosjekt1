@@ -369,7 +369,6 @@ df <- data.frame(X1 = c(x1, x2), class = c(rep(1, n_samples_class1), rep(2, n_sa
 Corrected three mistakes:
 
 * Corrected the number of folds from 4 to 5.
-*
 * Corrected the RMSE formula.
   
 ```{r problem 4bi, echo=TRUE,eval=TRUE}
@@ -432,7 +431,7 @@ cat("standard_error_of_the_median_bootstrap:", standard_error_of_the_median_boot
 ```
 
 **ii)**
-```{r problem 4cii, echo=TRUE,eval=TRUE}
+```{r problem 4cii, echo=FALSE,eval=TRUE}
 # simulate data (no need to change this part)
 set.seed(123)
 n <- 1000 # population size
@@ -457,10 +456,9 @@ for (i in 1:B) {
 standard_error_with_replacement <- sd(boot_with_replacement)
 standard_error_without_replacement <- sd(boot_without_replacement)
 
-cat("Standard Error with replacement:", standard_error_with_replacement, "\n")
-cat("Standard Error without replacement:", standard_error_without_replacement, "\n")
+cat("Standard Error with replacement:", standard_error_with_replacement)
+cat("Standard Error without replacement:", standard_error_without_replacement)
 ```
 For the standard error without replacement, the same model is produced for each sample. That is because when sampling with the same size of the original data set without replacement, each sample naturally are the same. Thus, the standard error is 0 when bootstrapping without replacement. This indicates no variability in the standard error accros the different bootstrap samples, as all the samples are identical.
 
-**d)**
-
+**d)** False, false, true, true
