@@ -294,14 +294,10 @@ auc_logreg <- roc_logreg$auc
 auc_lda <- roc_lda$auc
 # AUC for QDA
 auc_qda <- roc_qda$auc
-# Print AUC values
-cat("AUC for Logistic Regression:", auc_logreg, "\n")
-cat("AUC for LDA:", auc_lda, "\n")
-cat("AUC for QDA:", auc_qda, "\n")
 ```
 
-
-AUC over 0.8 is generally considered good. QDA performs slightly better than LDA and Logistic Regression. However Logistic regression is almost as accurate, but more interpretable, for one it gives clearer relationships between the predictors and they are linear.
+AUC for logistic regression is `r auc_logreg`, for the LDA it is `r auc_lda`, and for the QDA it is `r auc_qda`.
+AUC over 0.8 is generally considered good. QDA performs slightly better than LDA and Logistic Regression. However Logistic regression is almost as accurate, but more interpretative, for one it gives clearer relationships between the predictors and they are linear.
 
 
 **b) i) **
