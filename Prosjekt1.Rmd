@@ -262,8 +262,6 @@ Comparing the a woman with the all the same factors, except for class and fare p
 
 
 ```{r problem 3a(lda),echo=TRUE,eval=TRUE}
-
-
 ldamodel = lda(Survived ~ ., data = titanic_train)
 print(ldamodel)
 predicted <- predict(ldamodel, newdata = titanic_test)
@@ -327,19 +325,15 @@ AUC over 0.8 is generally considered good. QDA performs slightly better than LDA
 
 **b)**  
 
-Diagnostic Paradigm:
+### i) 
+The diagnostic paradigm in classification directly models the relationship between predictors and class labels, aiming to diagnose an observation's class
+based on its features. This approach, often deterministic, uses estimated probabilities and predefined thresholds for decision-making.Conversely, the
+sampling paradigm models the feature distribution within each class to understand how data for each class is generated, using this generative model for
+classification. It's more about capturing the data generation process for each class.  
+Key differences include the diagnostic paradigm's focus on the direct feature-to-class relationship and use of probabilities for decision-making, whereas the
+sampling paradigm emphasizes understanding the data generation process and uses modeled distributions for classification.  
 
-The diagnostic paradigm in classification focuses on directly modeling the relationship between the predictors and the outcome (class labels. The primary goal is to diagnose the class of an observation based on its features. Models under this paradigm typically estimate the probability that an observation belongs to a certain class given its features. This approach is more deterministic, where the decision rule is often based on the estimated probabilities and predefined thresholds.
-Sampling Paradigm:
-
-The sampling paradigm, on the other hand, is based on modeling the distribution of features for each class. It involves estimating how the data is generated or sampled for each class and then uses this information to classify new observations. This approach is more generative, as it tries to understand the underlying data generation process for each class and uses this generative model to make classification decisions.
-
-Key Differences:
-
-Modeling Focus: The diagnostic paradigm focuses on the direct relationship between features and classes, often modeling the conditional probability of a class given the features. The sampling paradigm focuses on modeling the distribution of features for each class, effectively capturing how data for each class is generated.
-Approach: Diagnostic models are more discriminative, directly seeking a decision boundary between classes. Sampling models are generative, aiming to understand the data generation process for each class.
-Decision Rule: In the diagnostic paradigm, classification decisions are often made based on estimated probabilities and thresholds. In the sampling paradigm, decisions are made based on likelihoods derived from the modeled distributions of features for each class.
-
+<<<<<<< HEAD
 **ii)**  
 Classification Models and Their Paradigms
 
@@ -352,6 +346,15 @@ Naive Bayes Classifier: Fits within the sampling paradigm. It is a generative mo
 LDA (Linear Discriminant Analysis): Primarily fits within the sampling paradigm. LDA models the distribution of features in each class (assuming a Gaussian distribution with a common covariance matrix across classes) and uses this to classify new observations by finding the class that maximizes the posterior probability.
 
 QDA (Quadratic Discriminant Analysis): Also belongs to the sampling paradigm. Similar to LDA, QDA models the distribution of features for each class, but it allows for class-specific covariance matrices, leading to quadratic decision boundaries. Like LDA, it uses the estimated distributions to compute class probabilities for classification.
+=======
+### ii)  
+Logistic Regression: Diagnostic paradigm, models class probability directly.  
+K-Nearest Neighbors (KNN): Sampling paradigm, classifies based on the local data distribution.  
+Naive Bayes: Sampling paradigm, uses feature distributions within classes to compute posterior probabilities.  
+Linear Discriminant Analysis (LDA): Sampling paradigm, assumes Gaussian feature distribution with a common covariance matrix for classification.  
+Quadratic Discriminant Analysis (QDA): Sampling paradigm, similar to LDA but allows class-specific covariance matrices, leading to quadratic decision
+boundaries  
+>>>>>>> 79c3af6 (22/02)
 
 
 **c)**  
