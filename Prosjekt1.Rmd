@@ -406,8 +406,8 @@ rmse_list[[i]] <- rmse
 }
 # compute mean of rmse_list
 rmse_mean <- mean(as.numeric(rmse_list))
-cat("rmse_mean:", rmse_mean, "\n")
 ```
+RMSE mean: `r round(rmse_mean,3)`
 
 **ii)** Changed:
 folds <- createFolds(boston_selected$medv, k = 5) 
@@ -437,8 +437,8 @@ for (i in 1:B) {
 }
 # compute the standard error of the median from the bootstrap samples
 standard_error_of_the_median_bootstrap <- sd(boot) # CORRECTED
-cat("standard_error_of_the_median_bootstrap:", standard_error_of_the_median_bootstrap, "\n")
 ```
+Standard error of the median bootstrap: `r round(standard_error_of_the_median_bootstrap,3)` 
 
 **ii)**
 ```{r problem 4cii, echo=FALSE,eval=TRUE}
@@ -465,10 +465,7 @@ for (i in 1:B) {
 # compute the standard errors of the medians
 standard_error_with_replacement <- sd(boot_with_replacement)
 standard_error_without_replacement <- sd(boot_without_replacement)
-
-cat("Standard Error with replacement:", standard_error_with_replacement)
-cat("Standard Error without replacement:", standard_error_without_replacement)
 ```
-For the standard error without replacement, the same model is produced for each sample. That is because when sampling with the same size of the original data set without replacement, each sample naturally are the same. Thus, the standard error is 0 when bootstrapping without replacement. This indicates no variability in the standard error accros the different bootstrap samples, as all the samples are identical.
+For the standard error without replacement (`r round(standard_error_with_replacement,3)`), the same model is produced for each sample. That is because when sampling with the same size of the original data set without replacement, each sample naturally are the same. Thus, the standard error is `r standard_error_without_replacement` when bootstrapping without replacement. This indicates no variability in the standard error accros the different bootstrap samples, as all the samples are identical.
 
 **d)** False, false, true, true
