@@ -101,9 +101,6 @@ valuechanged = (-10*(-0.796544)+60*(-0.067283)+0.005792 * (-10 + 60))*1000
 ```
 If the crime is reduced by 10 and age is 60, and then considering all other factor are kept equal our median value of the property is changed by `r round(valuechanged,2)`.
 
-
-
-
 ## b)  
 
 First thing we could do is to plot all our data with say ggpairs from GGAlly. We can then look how the data is spread and correlated. We want to carefully identify if we have any outliers. If most our points follow a specific pattern, but then one point stick out, we could carefully consider to remove it. One approach could be to look at the mean and std of a given data columns and if some point lie 2 standard deviations away from the mean we could remove them.
@@ -120,9 +117,8 @@ stderr = sm$coefficients[4, "Std. Error"]
 
 A t-value is calculated with the follow formula:
 $t = \frac{Coefficient~Estimate}{Standard~Error} = \frac{10}{`r round(stderr,3)`}$
-<!-- 10/0.40201=24.875 --> 
 
-The t-value for rm if the estimated coefficient was 10, but with the same standard error is 24.89. <!-- Insert variable instead.--> 
+The t-value for rm if the estimated coefficient was 10, but with the same standard error is 24.88.
 
 A higher coefficient with standard error kept the same gives us a higher t value and higher t values makes our estimate for statistically significant, as the p value drops. The t distribution is like a normal distribution but with a estimated variance from the sample. With a low amount of sample the t distributions curve has fatter tails and lower around the mean, as sample increases it converges to a normal distribution. So a higher absolute t value puts our score further towards the tails, strengthening our result.
 
@@ -148,39 +144,43 @@ The p-value associated with F values, though increased for age in this model wit
 
 ## d)  
 
+### i, ii, iii)  
+
 ```{r problem 2 d, echo=TRUE, eval=TRUE}
 new_data <- data.frame(crim = 10, age = 90, rm = 5)
 # Predict the response variable using the model for the confidence interval
 prediction_c <- predict(model4, newdata = new_data, interval = "confidence", level = 0.99)
-
 # Extract lower and upper bounds from the confidence interval prediction
-lower_bound_c <- prediction_c[1]
-upper_bound_c <- prediction_c[2]
-
-# Print the results for the confidence interval
-cat("Lower bound of 99% confidence interval:", lower_bound_c, "\n")
-cat("Upper bound of 99% confidence interval:", upper_bound_c, "\n\n")
-
+lower_bound_c <- prediction_c[2]
+upper_bound_c <- prediction_c[3]
 # Predict the response variable using the model for the prediction interval
 prediction_p <- predict(model4, newdata = new_data, interval = "prediction", level = 0.99)
-
 # Extract lower and upper bounds from the prediction interval prediction
-lower_bound_p <- prediction_p[1]
-upper_bound_p <- prediction_p[2]
-
-# Print the results for the prediction interval
-cat("Lower bound of 99% prediction interval:", lower_bound_p, "\n")
-cat("Upper bound of 99% prediction interval:", upper_bound_p, "\n")
+lower_bound_p <- prediction_p[2]
+upper_bound_p <- prediction_p[3]
 ```
-### iii)  
 
-The difference between confidence interval and prediction interval is that the confidence interval estimates the range in which the population mean response most likely will lie, and the prediction interval estimates the range in which a future individual observation most likely will fall within.
+Our confidence interval is [`r round(lower_bound_c,2)`, `r round(upper_bound_c,2)`]. This is the interval for our expected value, if we would repeat this
+experiment a 100 times, 99 times the mean would fall into this range. Our prediction interval is [`r round(lower_bound_p,2)`, `r round(upper_bound_p,2)`],
+this one is different. This is if we would take our data point and repeat it for 100 individual true responses, 99 of those responses would fall into this
+range.
 
-**iv) 
+
+## iv)  
+
 ```{r problem 2 div, echo=TRUE, eval=TRUE, fig.width=6, fig.height=4, fig.align='center'}
 # Create diagnostic plots
 autoplot(model4, which = c(1, 2, 3, 5))
 ```
+
+In our first Tukey-Anscombe diagram, also known as Residuals vs Fitted is designed to visualize the relationship between the residuals. Here we would like a
+even spread above and under 0 across the whole x axis, In our case we u shape suggesting it is not linear or that we should try to add some quadratic terms
+to even out residuals and fitted values. Scale-Location is somehow similar, but instead of looking at the mean it looks at the variance. We have the same u
+shape here, meaning we would need to stabilize our variance somehow. Residuals vs Leverage shows how much leverage our points have. That is the further the
+point is to the right the higher influence it has on the coefficients. On the y axis it is how far it some from the coefficients they are. Points far to the
+right and from the middle line is bad. The normal Q-Q plot show if our data follows a normal distribution. Ideally we want a straight line which tells our
+data is normal. In our case we can see that the plot diverge to the end. Suggesting that we have some heavy tails. Here we should add more predictors to
+straight up the line.  
 
 ## e)  
 
@@ -203,7 +203,7 @@ In reality, there are only two cases:
 
 ### ii)  
 The formula should only have one binary quantitative variable to describe 
-the gender.
+the gender. Our model would in this case make a base case for female and then if we have a male it could add something in $\beta_1$, say 10kg.
 
 $y=\beta_{0}+\beta_{1}x_{gender}+\varepsilon$
 
@@ -211,34 +211,17 @@ where
 
 $x_{gender}= \begin{cases}1 & if~male\\0 & if~female\end{cases}$
 
-**iii) A formula for a linear model that predicts income based on the predictor 
+### iii)  
+A formula for a linear model that predicts income based on the predictor 
 education degree with three categories {Bachelor, Master, PhD} is:
 
-$y=\beta_{0}+\beta_{1}x_{education}+\varepsilon$
+$y=\beta_{0}+\beta_{1}x_{master}+\beta_2x_{Phd}+\varepsilon$
 
-where
+Generally we need k-1 "dummy" variables for k classes. In this case bachelor is the base case. If one has master but not PhD $x_{master}$ would be 1, but 0 if one has PhD. Then only the $x_{phd}$ would 1. Both would be 0 for the base case.
 
-$x_{education}= \begin{cases}2 & if~PhD\\1 & if~Master\\0 & if~Bachelor\end{cases}$
+## f) True, False, True, False 
 
-## f)  
-
-### i) True  
-
-### ii) False  
-
-### iii) True  
-
-### iv) False  
-
-
-
-
-# Problem 3  
-
-## a)  
-
-### i)  
-
+# Problem 3 a) i)  
 ```{r proble 3a, echo=TRUE, eval=TRUE}
 data("titanic_train")
 vars_to_be_removed <- c("PassengerId", "Name", "Ticket", "Cabin", "Embarked")
@@ -306,58 +289,40 @@ actual_labels <- titanic_test$Survived
 misclassification_error = mean(predicted_labels != actual_labels)
 accuracy <- 1 - misclassification_error
 print(accuracy)
-
-
 ```
 
 ### vi)  
 
 ```{r problem 1a(ROC),fig.height=4,fig.width=4}
-
-
 logreg_probs <- predict(logReg, newdata = titanic_test, type = "response")
 lda_probs <- predict(ldamodel, newdata = titanic_test)$posterior[,2]  
 qda_probs <- predict(qdamodel, newdata = titanic_test)$posterior[,2]
 actual_outcomes <- titanic_test$Survived
-
 # ROC for Logistic Regression
 roc_logreg <- roc(actual_outcomes, logreg_probs)
-
 # ROC for LDA
 roc_lda <- roc(actual_outcomes, lda_probs)
-
 # ROC for QDA
 roc_qda <- roc(actual_outcomes, qda_probs)
-
 # Plot ROC curve for Logistic Regression
 plot(roc_logreg, main="ROC Curves Comparison", col="red", xlim=c(1, 0), ylim=c(0, 1))
-
 # Add ROC curve for LDA
 lines(roc_lda, col="blue")
-
 # Add ROC curve for QDA
 lines(roc_qda, col="green")
-
 # Add legend
 legend("bottomright", legend=c("Logistic Regression", "LDA", "QDA"),
        col=c("red", "blue", "green"), lwd=2)
-
-
-
-
 # AUC for Logistic Regression
 auc_logreg <- roc_logreg$auc
-
 # AUC for LDA
 auc_lda <- roc_lda$auc
-
 # AUC for QDA
 auc_qda <- roc_qda$auc
 # Print AUC values
 cat("AUC for Logistic Regression:", auc_logreg, "\n")
 cat("AUC for LDA:", auc_lda, "\n")
 cat("AUC for QDA:", auc_qda, "\n")
-
 ```
 
 
