@@ -48,9 +48,7 @@ For K=5 we have 3/5 red, so it is red.
 **e) i)**  
 
 
-```{r setup2, echo=TRUE, eval=TRUE, cache=TRUE, fig.width=7, fig.height=3.5}
-
-
+```{r problem 1e, fig.width=7, fig.height=3.5}
 data(Boston)
 data = Boston
 model = lm(medv ~ rm + age,data=data)
@@ -317,7 +315,7 @@ Quadratic Discriminant Analysis (QDA): Sampling paradigm, similar to LDA but all
 boundaries  
 
 
-**c) i)** The decision boundary is given by setting by taking the log of each pdf and adding the log of the prior probability equal each other.
+**c) i)** The decision boundary is given by taking each pdf times the posterior probabilities, equal each other and then solving for x. To make it easier we can take the log on each side.
 
 \begin{gather*}
 X|\{Y=1\}\sim N(-2,1.5^2)\\
@@ -382,8 +380,6 @@ Corrected three mistakes:
 * Corrected the RMSE formula.
   
 ```{r problem 4bi, echo=TRUE,eval=TRUE}
-# Import the Boston housing price dataset
-data(Boston)
 # select specific variables
 selected_vars <- c("crim", "rm", "age", "medv")
 boston_selected <- Boston[, selected_vars]
@@ -424,8 +420,6 @@ folds <- createFolds(boston_selected$medv, k = nrow(boston_selected))
 * Set seed before bootstrapping for reproducibility.
 
 ```{r problem 4ci, echo=TRUE,eval=TRUE}
-# simulate data (no need to change this part)
-set.seed(123) # CORRECTED
 n <- 1000 # population size
 dataset <- rnorm(n) # population
 # bootstrap
@@ -442,11 +436,8 @@ cat("standard_error_of_the_median_bootstrap:", standard_error_of_the_median_boot
 
 **ii)**
 ```{r problem 4cii, echo=FALSE,eval=TRUE}
-# simulate data (no need to change this part)
-set.seed(123)
 n <- 1000 # population size
 dataset <- rnorm(n) # population
-
 # bootstrap with replacement
 B <- 10 # bootstrap sample size
 boot_with_replacement <- matrix(NA, nrow = B, ncol = 1)
@@ -454,21 +445,18 @@ for (i in 1:B) {
   set.seed(123 + i) # setting seed for reproducibility
   boot_with_replacement[i, ] <- median(sample(dataset, n, replace = TRUE))
 }
-
 # bootstrap without replacement
 boot_without_replacement <- matrix(NA, nrow = B, ncol = 1)
 for (i in 1:B) {
   set.seed(123 + i) # setting seed for reproducibility
   boot_without_replacement[i, ] <- median(sample(dataset, n, replace = FALSE))
 }
-
 # compute the standard errors of the medians
 standard_error_with_replacement <- sd(boot_with_replacement)
 standard_error_without_replacement <- sd(boot_without_replacement)
-
 cat("Standard Error with replacement:", standard_error_with_replacement)
 cat("Standard Error without replacement:", standard_error_without_replacement)
 ```
-For the standard error without replacement, the same model is produced for each sample. That is because when sampling with the same size of the original data set without replacement, each sample naturally are the same. Thus, the standard error is 0 when bootstrapping without replacement. This indicates no variability in the standard error accros the different bootstrap samples, as all the samples are identical.
+`r ``For the standard error without replacement, the same model is produced for each sample. That is because when sampling with the same size of the original data set without replacement, each sample naturally are the same. Thus, the standard error is 0 when bootstrapping without replacement. This indicates no variability in the standard error accros the different bootstrap samples, as all the samples are identical.
 
 **d)** False, false, true, true
